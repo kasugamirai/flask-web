@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p>{{ music|length }} Titles</p>
+{% if current_user.is_authenticated %}
+<form method="post">
+    title <input type="text" name="title" autocomplete="off" required>
+    album <input type="text" name="album" autocomplete="off" required>
+    artist <input type="text" name="artist" autocomplete="off" required>
+    grouping <input type="text" name="grouping" autocomplete="off" required>
+    <input class="btn" type="submit" name="submit" value="Add">
+</form>
+{% endif %}
+<ul class="music-list">
+    {% for music in musics %}
+    <li>{{ music.title }} - {{ music.artist }} - {{music.album}} - {{music.grouping}}
+        <span class="float-right">
+            {% if current_user.is_authenticated %}
+            <form class="inline-form" method="post" action="{{ url_for('delete', music_id=music.id) }}">
+                <input class="btn" type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')">
+            </form>
+            {% endif %}
+            <a class="btn" href="{{ url_for('edit', music_id=music.id) }}">Edit</a>
+            <a class="applemusic" href="https://music.apple.com/jp/search?term={{ music.title }}" target="_blank" title="Find this movie on IMDb">apple music</a>
+        </span>
+    </li>
+    {% endfor %}
+</ul>
+<img class="lcrc" src="{{ url_for('static', filename='images/01.png') }}">
+{% endblock %}

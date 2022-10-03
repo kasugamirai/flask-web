@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h3>Edit item</h3>
+<form method="post">
+    title <input type="text" name="title" autocomplete="off" required value="{{ music.title }}">
+    album <input type="text" name="album" autocomplete="off" required value="{{ music.album }}">
+    artist <input type="text" name="artist" autocomplete="off" required value="{{ music.artist }}">
+    grouping <input type="text" name="grouping" autocomplete="off" required value="{{ music.grouping }}">
+
+    <input class="btn" type="submit" name="submit" value="Update">
+</form>
+{% endblock %}

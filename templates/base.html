@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ current_user.username }}'s Watchlist</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/12.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
+</head>
+<body>
+    {% for message in get_flashed_messages() %}
+    <div class="alert">{{ message }}</div>
+    {% endfor %}
+
+    <h2>
+        <img alt="Avatar" class="avatar" src="{{ url_for('static', filename='images/02.png') }}">
+        {% if current_user.is_authenticated %}
+        {{ current_user.username }}'s Watchlist
+        {% endif %}
+    </h2>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('register') }}">register</a></li>
+            {% if current_user.is_authenticated %}
+            <li><a href="{{ url_for('settings') }}">Settings</a></li>
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            {% else %}
+            <li><a href="{{ url_for('login') }}">Login</a></li>
+            {% endif %}        
+        </ul>
+    </nav>
+    {% block content %}{% endblock %}
+    <footer>
+        <small>&copy; 2022 <a href="https://www.google.com/">xy01</a></small>
+    </footer>
+</body>
+</html>
